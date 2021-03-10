@@ -1,3 +1,4 @@
+
 <template>
 <div id="app" :class=" typeof wheather.main!='undefined'&&wheather.main.temp>20?'warm':'cold'" >
   <main>
@@ -21,8 +22,6 @@
 </template>
 
 <script>
-
-
 export default {
   name: 'App',
   data(){
@@ -47,24 +46,18 @@ export default {
       this.wheather=results;
       console.log(this.wheather)
     },
-
     currentTime(){
       let d=new Date();
       let months=['Jan','Feb','March','April','May','June','July','Aug','Sept','Oct','Nov','Dec'];
       let days=['Sun','Mon','Tues','Wed','Thud','Fri','Sat'];
-
       let month=months[d.getMonth()];
       let day=days[d.getDay()];
       let year=d.getFullYear();
       let date=d.getDate()
-
       return `${day} ${date}, ${month}, ${year}`
-
      
     }
-
   }
-
 }
 </script>
 
@@ -74,7 +67,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-
 }
 body{
   font-family:'montserrat', sans-serif;
@@ -94,12 +86,9 @@ body{
    background-position:bottom;
    background-repeat:no-repeat;
 }
-
-
 main{
   min-height:100vh;
   background:linear-gradient(to bottom ,rgba(0,0,0,0.005),rgba(0,0,0,0.75));
-
 }
 .search-bar{
   padding:10px;
@@ -110,11 +99,9 @@ main{
   background:rgba(255,255,255,0.6);
   border:none;
 }
-
 .search-box .search-bar:focus{
   box-shadow:0 0 8px rgba(0,0,0,0.6);
   border-radius:14px 0 14px 0;
-
 }
 .wheather-wrap{
   color:whitesmoke;
@@ -129,9 +116,7 @@ main{
   font-weight:900;
   border-radius:16px;
   box-shadow:0 8px rgba(0,0,0,0.2)
-
 }
-
 .location{
   font-size:35px;
 }
@@ -142,5 +127,6 @@ main{
   font-size:40px;
   font-weight:700;
 }
-
 </style>
+
+  
