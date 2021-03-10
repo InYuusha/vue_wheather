@@ -36,7 +36,7 @@ export default {
   },
   methods:{
       keyPress(k){
-           if(k.keyCode==13||k.keyCode==32){
+           if(k.keyCode==13){
                this.fetchWheather()
            }
 
@@ -100,6 +100,8 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  max-height:95vh;
+  overflow-y:hidden;
 }
 body{
   font-family:'montserrat', sans-serif;
