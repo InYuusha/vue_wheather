@@ -3,7 +3,8 @@
 <div id="app" :class=" typeof wheather.main!='undefined'&&wheather.main.temp>20?'warm':'cold'" >
   <main>
     <div class="search-box">
-      <input type="text" class="search-bar" placeholder="Search" v-model="search" v-on:keypress="fetchWheather">
+      <input type="text" class="search-bar" placeholder="Search" v-model="search" v-on:keypress="keyPress">
+      <button class="search-button" @click="fetchWheather">Search</button>
       <div class="wheather-wrap" v-if="typeof wheather.main!='undefined'">
         <div class="location-box">
           <div class="location">{{wheather.name}}, {{wheather.sys.country}}</div>
@@ -34,17 +35,49 @@ export default {
     }
   },
   methods:{
-    fetchWheather(k){
-      if(k.key=="Enter"){
-        fetch(`${this.url_base}weather?q=${this.search}&units=metric&APPID=${this.api_key}`)
+      keyPress(k){
+           if(k.keyCode==13||k.keyCode==32){
+               this.fetchWheather()
+           }
+
+      },
+    fetchWheather(){
+        try{
+
+                fetch(`${this.url_base}weather?q=${this.search}&units=metric&APPID=${this.api_key}`)
           .then(res =>{
-            return res.json();
-          }).then(this.setResults);
-      }
+              if(res){
+                   return res.json();
+
+              }
+              else{
+                  alert("Null responnse")
+              }
+           
+          })
+          
+          .then(this.setResults)
+         
+        }
+        catch(err){
+            alert(err)
+        }
+     
+    
+      
     },
     setResults(results){
-      this.wheather=results;
-      console.log(this.wheather)
+        if(results.weather){
+            this.wheather=results;
+            this.search=""
+            
+        }
+        else{
+            alert(this.search+" "+results.message)
+            this.search=""
+        }
+      
+      
     },
     currentTime(){
       let d=new Date();
@@ -75,14 +108,14 @@ body{
 }
 #app.cold {
    background-image: url("https://image.freepik.com/free-vector/winter-landscape-concept-flat-design_23-2148360956.jpg");
-   background-size: 700px 700px;
+   background-size: cover;
    background-position:bottom;
    background-repeat:no-repeat;
   
 }
 #app.warm{
   background-image:url("https://image.freepik.com/free-vector/realistic-blue-sky-with-clouds-composition-rays-sun-peek-out-from-clouds_1284-33934.jpg");
-    background-size: 700px 700px;
+    background-size: cover;
    background-position:bottom;
    background-repeat:no-repeat;
 }
@@ -94,12 +127,15 @@ main{
   padding:10px;
   box-shadow: 0 0 8px rgba(0,0,0,0.2);
   margin:20px;
-  width:50vh;
+  width:30%;
   border-radius:0 14px 0 14px;
   background:rgba(255,255,255,0.6);
   border:none;
+  transition:0.3s;
+
 }
 .search-box .search-bar:focus{
+  outline:none;
   box-shadow:0 0 8px rgba(0,0,0,0.6);
   border-radius:14px 0 14px 0;
 }
@@ -126,6 +162,12 @@ main{
 .wheather{
   font-size:40px;
   font-weight:700;
+}
+.search-button{
+    height:40px;
+    opacity:0.6 ;
+    border-radius:0 14px 0 14px;
+
 }
 </style>
 
